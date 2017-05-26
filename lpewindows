@@ -1,0 +1,26 @@
+import pyautogui
+import pillow
+
+pyautogui.PAUSE = 1
+pyautogui.FAILSAFE = True
+
+pyautogui.moveTo() #OC manager on task bar
+pyautogui.click() #OC manager
+
+print("Here is where you compare the part numbers to the label.") #check the screen for PN and label. May add feature to enter/compare auto
+print("Please insert the fiber plug or the fiber cable.")
+
+pyautogui.click() #add coordinates for plugged in port. Image recognition?
+pyautogui.moveTo() #port status (click?)
+
+print("Please compare the port speed to the expected port speed.")
+
+pyautogui.click() #diagnostics tab
+
+pyautogui.click() #advanced diagnostics
+
+pyautogui.click() #testing boxes 1,2,3
+
+print("Please confirm the tests passed.")
+print("Please change ports or exit if finished.")
+
