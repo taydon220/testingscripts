@@ -1,29 +1,54 @@
-import pyautogui
-import pillow
+import pyautogui as gui
+import time
+import sys
 
-pyautogui.PAUSE = 1
-pyautogui.FAILSAFE = True
-while True:
-    input("Press enter to start.")
-    pyautogui.click(287,998) #OC manager
+gui.PAUSE = .5
+gui.FAILSAFE = True
 
-    input("Please compare the part numbers to the label.") 
-    input("Please insert the fiber plug or the fiber cable.")
+def testcycle():
+    gui.alert("Plug into next port.")
+    gui.click(20,66) #refresh
+    time.sleep(4)
+    coords = gui.locateOnScreen('pluggedport.png')
+    portcenter = gui.center(coords)
+    
+    gui.click(portcenter)
+    
+    gui.click(377,124) #port status 
+    gui.alert("Please compare the port speed to the expected port speed.")
+    time.sleep(3)
+    gui.click(803,120) #diagnostics tab
 
-    pyautogui.click(487,367) #add coordinates for plugged in port. Image recognition?
-    pyautogui.click(979,241) #port status (click?)
+    gui.click(559,278) #advanced diagnostics
 
-    input("Please compare the port speed to the expected port speed.")
+    gui.click(283,251) #testing boxes 1,2,3
+    gui.click(283,290)
+    gui.click(283,322)
+    gui.click(827,239) #start
+    gui.click(598,584)
+    time.sleep(13)
+    gui.alert("Please confirm the tests passed.")
+    gui.alert("Take a picture and mark any cards that failed.")
+    gui.click(988,745) #exit
 
-    pyautogui.click(1049,220) #diagnostics tab
+if __name__ == '__main__':
+    
+    while True:
+        try:
+            gui.click(283,1005) #OC manager
+            time.sleep(5)
+            totalcards = int(gui.prompt("How many cards are you testing?"))
+            gui.alert("Compare Part Number to the label, then press enter:") 
+            gui.click(1253,817) #click back into oc manager
+            for cards in range(totalcards):
+                testcycle()
+            sys.exit()
+                
+        except KeyboardInterrupt:
+            sys.exit()
 
-    pyautogui.click(770,404) #advanced diagnostics
-
-    pyautogui.click(283,251) #testing boxes 1,2,3
-    pyautogui.click(283,290)
-    pyautogui.click(283,322)
-
-    input("Please confirm the tests passed.")
-    finished = input("Please change ports or type exit if finished.")
-    if finished == 'exit':
-	break
+#change to all image recognition.
+#try, except for pluggedport.png
+#ask if you want to shut down?
+#16gb image recognition to exclude 3rd test
+#2 port support/more testing and debugging
