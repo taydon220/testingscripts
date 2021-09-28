@@ -9,7 +9,7 @@ def testcycle():
     gui.alert("Plug into next port.")
     gui.click(20,66) #refresh
     time.sleep(4)
-    coords = gui.locateOnScreen('pluggedport.png')
+    coords = gui.locateOnScreen('./source/pluggedport.png')
     portcenter = gui.center(coords)
     
     gui.click(portcenter)
